@@ -12,7 +12,7 @@
             <div class="br"></div>
             <q-input dark v-model="username" type="text" label="Username" mask="XXXXXXXXXXXXXXX" class="textbox" />
             <q-input dark v-model="password" type="password" label="Password" mask="XXXXXXXXXXXXXXX" class="textbox" />
-            <q-btn class="qButton" color="primary" label="Login" />
+            <q-btn class="qButton" color="primary" label="Login" @click="testLogin(username, password)"/>
             <br />
             <q-btn flat color="primary" label="Trouble Signing In?" @click="forgotPassword" />
           </div>
@@ -48,7 +48,7 @@
             <div class="br"></div>
             <q-input v-model="username" type="text" label="Username" mask="XXXXXXXXXXXXXXX" class="textbox" />
             <q-input v-model="password" type="password" label="Password" mask="XXXXXXXXXXXXXXX" class="textbox" />
-            <q-btn class="qButton" color="primary" label="Login" />
+            <q-btn class="qButton" color="primary" label="Login"  @click="testLogin(username, password)"/>
             <br />
             <q-btn flat color="primary" label="Trouble Signing In?" @click="forgotPassword" />
           </div>
@@ -181,6 +181,15 @@ const forgotPassword = () => {
 //   }
 // }
 
+const checkTestUsername = async (username) => {
+  try {
+    if (username.toUpperCase() === 'TEST' ) return true
+    return false
+  } catch  {
+    return false
+  }
+}
+
 // const checkPassword = async () => {
 //   try {
 //     const response = await api.get('/api/CheckPassword/' + username.value.toUpperCase())
@@ -191,6 +200,37 @@ const forgotPassword = () => {
 //     return false
 //   }
 // }
+
+const checkTestPassword = async (password) => {
+  try {
+    if (password.toUpperCase() === 'TEST' ) return true
+    return false
+  } catch {
+    return false
+  }
+}
+
+const testLogin = async (uname, pword) => {
+  if (await checkTestUsername(uname) === false) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Login Failed',
+      text: 'Invalid Username',
+      confirmButtonText: 'Retry',
+    })
+    return
+  }
+
+  if (await checkTestPassword(pword) === false) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Login Failed',
+      text: 'Invalid Password',
+      confirmButtonText: 'Retry',
+    })
+    return
+  }
+}
 
 // const login = async (uname: string, pword: string) => {
 //   let ePass = encrypt(pword)
@@ -517,7 +557,6 @@ const handler = (bool) => {
 .docs
   color: #ffbe00
   cursor: pointer
-  margin-top: -1.6em
   padding-bottom: 1em
   text-decoration: underline
   font-size: 1.2em
@@ -721,6 +760,7 @@ const handler = (bool) => {
 footer
   color: #ffbe00
   font-size: 0.9rem
+  padding: 1rem 0 0 0
 
   /* @media screen and (min-width: 900px) { */
 @media screen and (max-width: 900px)
