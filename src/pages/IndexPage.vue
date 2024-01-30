@@ -146,7 +146,7 @@ const checkDark = async () => {
   if (quasar.sessionStorage.has('__' + encrypt('dark') + '_token') === true) {
     nightmode(true)
   } else {
-    nightmode(true)
+    nightmode(false)
   }
 }
 
