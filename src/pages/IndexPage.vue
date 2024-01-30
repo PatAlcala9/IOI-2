@@ -2,12 +2,8 @@
   <q-page padding>
     <div v-if="dark" class="workArea-dark" v-touch-swipe.mouse.left="handler(false)">
       <div class="grid-container">
-        <!-- <div v-if="offline" class="online-notify">
-          <offline></offline>
-        </div> -->
-
         <div class="main">
-          <img class="logo" ref="logox" src="../assets/ocbologo.svg" alt="OCBO Logo" @click="bounceLogo" />
+          <img class="logo" ref="logox" src="../assets/ocbologo2.png" alt="OCBO Logo" @click="bounceLogo" />
           <br />
           <h2 class="page-title h2-light" @click="rotateTitle">OCBO Online Inspection</h2>
 
@@ -31,7 +27,7 @@
         </div>
 
         <div class="mode">
-          <img class="cursor-pointer" src="../assets/day.svg" alt="Day Mode" width="45px" height="45px" />
+          <img class="cursor-pointer" src="../assets/day.svg" alt="Day Mode" width="45px" height="45px" @click="nightmode(false)"/>
         </div>
       </div>
     </div>
@@ -43,7 +39,7 @@
         </div> -->
 
         <div class="main">
-          <img class="logo" ref="logox" src="../assets/ocbologo.svg" alt="OCBO Logo" @click="bounceLogo" />
+          <img class="logo" ref="logox" src="../assets/ocbologo2.png" alt="OCBO Logo" @click="bounceLogo" />
           <br />
           <h2 class="page-title h2-light" @click="rotateTitle">OCBO Online Inspection</h2>
 
@@ -67,7 +63,7 @@
         </div>
 
         <div class="mode">
-          <img class="cursor-pointer" src="../assets/night2.svg" alt="Night Mode" width="35px" height="35px" />
+          <img class="cursor-pointer" src="../assets/night2.svg" alt="Night Mode" width="35px" height="35px" @click="nightmode(true)"/>
         </div>
       </div>
     </div>
@@ -81,7 +77,7 @@ import Swal from 'sweetalert2'
 import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import { ref } from 'vue'
-import { encrypt } from '../js/OCBO'
+// import { encrypt } from '../js/OCBO'
 
 const router = useRouter()
 const quasar = useQuasar()
@@ -120,7 +116,7 @@ const animate = () => {
 }
 
 const checkLogin = async () => {
-  if (quasar.sessionStorage.has('__' + encrypt('id') + '_token') === true) {
+  if (quasar.sessionStorage.has('id') === true) {
     router.push('main')
   } else {
     router.push('/')
@@ -143,7 +139,7 @@ const checkLogin = async () => {
 // }
 
 const checkDark = async () => {
-  if (quasar.sessionStorage.has('__' + encrypt('dark') + '_token') === true) {
+  if (quasar.sessionStorage.has('dark') === true) {
     nightmode(true)
   } else {
     nightmode(false)
@@ -157,10 +153,9 @@ const openDocs = () => {
 const nightmode = (bool) => {
   dark.value = bool
   if (bool) {
-    quasar.sessionStorage.remove('__' + encrypt('zoning') + '_token')
-    quasar.sessionStorage.set('__' + encrypt('dark') + '_token', true)
+    quasar.sessionStorage.set('dark', true)
   } else {
-    quasar.sessionStorage.remove('__' + encrypt('dark') + '_token')
+    quasar.sessionStorage.remove('dark')
   }
 }
 
@@ -456,15 +451,14 @@ const forgotPassword = () => {
 //       //   })
 // }
 
-const handler = (index) => {
+const handler = (bool) => {
   return () => {
-    dark.value = index
+    dark.value = bool
 
-    if (index) {
-      quasar.sessionStorage.remove('__' + encrypt('zoning') + '_token')
-      quasar.sessionStorage.set('__' + encrypt('dark') + '_token', true)
+    if (bool) {
+      quasar.sessionStorage.set('dark', true)
     } else {
-      quasar.sessionStorage.remove('__' + encrypt('dark') + '_token')
+      quasar.sessionStorage.remove('dark')
     }
   }
 }
@@ -500,12 +494,9 @@ const handler = (index) => {
   // /* padding-left: 90%; */
 
 .page-title
-  margin-top: -21px
+  // margin-top: -15px
   font-weight: bold
-  // /* text-shadow: 2px 2px 2px #031a23; */
-  // /* -webkit-text-stroke: white; */
-  // /* -webkit-text-stroke-width: 0.5px;
-  // -webkit-text-stroke-color: #000000; */
+
 
 
 .logo
