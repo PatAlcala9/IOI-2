@@ -230,6 +230,8 @@ const testLogin = async (uname, pword) => {
     })
     return
   }
+
+  gotoMain()
 }
 
 // const login = async (uname: string, pword: string) => {
@@ -490,6 +492,10 @@ const testLogin = async (uname, pword) => {
 //       //     this.checkConnected()
 //       //   })
 // }
+
+const gotoMain = () => {
+  router.push('main')
+}
 
 const handler = (bool) => {
   return () => {
