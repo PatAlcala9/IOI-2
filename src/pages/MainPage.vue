@@ -1,56 +1,56 @@
 <template>
   <q-page v-if="dark" padding class="page--dark">
     <div class="grid-container">
-        <!-- <input id="camera" type="file" accept="image/*" capture="camera" hidden/> -->
+      <!-- <input id="camera" type="file" accept="image/*" capture="camera" hidden/> -->
 
-        <q-input dark class="searchbar" bg-color="black" color="white" rounded outlined v-model="appno" mask="##-########" label="Application Number" @keydown="loadData">
-          <template v-slot:append>
-            <q-avatar>
-              <q-icon v-if="appno === ''" name="search" />
-              <q-icon v-else name="clear" class="cursor-pointer" @click="clearData_search" />
-            </q-avatar>
-          </template>
-        </q-input>
+      <q-input dark class="searchbar" bg-color="black" color="white" rounded outlined v-model="appno" mask="##-########" label="Application Number" @keydown="loadData">
+        <template v-slot:append>
+          <q-avatar>
+            <q-icon v-if="appno === ''" name="search" />
+            <q-icon v-else name="clear" class="cursor-pointer" @click="clearData_search" />
+          </q-avatar>
+        </template>
+      </q-input>
 
-        <transition appear enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
-          <q-btn v-if="appno !== ''" round unelevated class="searchcircle" color="primary" @click="loadData"><q-icon name="search"/></q-btn>
-        </transition>
+      <transition appear enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
+        <q-btn v-if="appno !== ''" round unelevated class="searchcircle" color="primary" @click="loadData"><q-icon name="search" /></q-btn>
+      </transition>
 
-        <q-btn class="logout" unelevated rounded color="primary" label="Logout" @click="logout"/>
+      <q-btn class="logout" unelevated rounded color="primary" label="Logout" @click="logout" />
 
-        <div class="ownername">
-          <iLabel value="Owner Name :"></iLabel>
-          <q-input readonly bg-color="blue-grey-3" filled v-model="name" style="font-size: 20px "></q-input>
-        </div>
+      <div class="ownername">
+        <iLabel value="Owner Name :"></iLabel>
+        <q-input readonly bg-color="blue-grey-3" filled v-model="name" style="font-size: 20px"></q-input>
+      </div>
 
-        <div class="address">
-          <iLabel value="Address :"></iLabel>
-          <q-input readonly bg-color="blue-grey-3" filled v-model="address" style="font-size: 20px "></q-input>
-        </div>
+      <div class="address">
+        <iLabel value="Address :"></iLabel>
+        <q-input readonly bg-color="blue-grey-3" filled v-model="address" style="font-size: 20px"></q-input>
+      </div>
 
-        <div class="location">
-          <iLabel value="Location of Application :"></iLabel>
-          <q-input readonly bg-color="blue-grey-3" filled v-model="location" style="font-size: 20px "><q-btn v-if="appid > 0" flat color="primary" label="Locate" @click="showmap" /></q-input>
-        </div>
+      <div class="location">
+        <iLabel value="Location of Application :"></iLabel>
+        <q-input readonly bg-color="blue-grey-3" filled v-model="location" style="font-size: 20px"><q-btn v-if="appid > 0" flat color="primary" label="Locate" @click="showmap" /></q-input>
+      </div>
 
-        <div class="scope">
-          <iLabel value="Scope of Work :"></iLabel>
-          <q-input readonly bg-color="blue-grey-3" filled v-model="scope" style="font-size: 20px "></q-input>
-        </div>
+      <div class="scope">
+        <iLabel value="Scope of Work :"></iLabel>
+        <q-input readonly bg-color="blue-grey-3" filled v-model="scope" style="font-size: 20px"></q-input>
+      </div>
 
-        <div class="typeoruse">
-          <iLabel value="Type or Use :"></iLabel>
-          <q-input readonly bg-color="blue-grey-3" filled v-model="typeoruse" style="font-size: 20px "></q-input>
-        </div>
+      <div class="typeoruse">
+        <iLabel value="Type or Use :"></iLabel>
+        <q-input readonly bg-color="blue-grey-3" filled v-model="typeoruse" style="font-size: 20px"></q-input>
+      </div>
     </div>
-    <div><br/><br/></div>
+    <div><br /><br /></div>
 
-    <!-- <div class="typeofcon" v-if="showTypeofConstruction">
+    <div class="typeofcon">
       <label>Type of Construction :</label><br />
       <q-btn-dropdown v-if="savedTypeBool" split unelevated color="white" text-color="black" @input="checkSavedDropdown">
         <template v-slot:label>
           <div class="row items-center no-wrap">
-            <div class="text-center">{{selectedType}}</div>
+            <div class="text-center">{{ selectedType }}</div>
           </div>
         </template>
 
@@ -73,13 +73,13 @@
             </q-item-section>
           </q-item>
 
-           <q-item clickable v-close-popup @click="setType('Type III-B')">
+          <q-item clickable v-close-popup @click="setType('Type III-B')">
             <q-item-section>
               <q-item-label>Type III-B</q-item-label>
             </q-item-section>
           </q-item>
 
-           <q-item clickable v-close-popup @click="setType('Type IV')">
+          <q-item clickable v-close-popup @click="setType('Type IV')">
             <q-item-section>
               <q-item-label>Type IV</q-item-label>
             </q-item-section>
@@ -96,13 +96,13 @@
       <q-btn-dropdown v-else disable-dropdown split unelevated color="white" text-color="black">
         <template v-slot:label>
           <div class="row items-center no-wrap">
-            <div class="text-center">{{selectedType}}</div>
+            <div class="text-center">{{ selectedType }}</div>
           </div>
         </template>
       </q-btn-dropdown>
     </div>
 
-    <div class="dtable" v-if="userdefaultaccess">
+    <!--   <div class="dtable" v-if="userdefaultaccess">
         <q-table class="datatable" title="Findings" :data="empdata" :columns="columns" :table-style="{ backgroundColor: '#cfd8dc' }" flat hide-bottom></q-table>
     </div>
 
@@ -1254,7 +1254,7 @@
 
   <q-page v-else padding class="page">
     <div class="grid-container">
-      <q-input class="searchbar" bg-color="white" rounded outlined v-model="appno" mask="##-########" label="Application Number" >
+      <q-input class="searchbar" bg-color="white" rounded outlined v-model="appno" mask="##-########" label="Application Number">
         <template v-slot:append>
           <q-avatar>
             <q-icon v-if="appno === ''" name="search" />
@@ -1264,44 +1264,44 @@
       </q-input>
 
       <transition appear enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
-        <q-btn v-if="appno !== ''" round unelevated class="searchcircle" color="primary" @click="loadData"><q-icon name="search"/></q-btn>
+        <q-btn v-if="appno !== ''" round unelevated class="searchcircle" color="primary" @click="loadData"><q-icon name="search" /></q-btn>
       </transition>
 
-      <q-btn class="logout" unelevated rounded color="primary" label="Logout" @click="logout"/>
+      <q-btn class="logout" unelevated rounded color="primary" label="Logout" @click="logout" />
     </div>
-    <div><br/></div>
+    <div><br /></div>
 
     <div class="details">
-        <div class="ownername">
-          <iLabel value="Owner Name :"></iLabel>
-          <q-input readonly bg-color="blue-grey-3" filled v-model="name" style="font-size: 20px "></q-input>
-        </div>
+      <div class="ownername">
+        <iLabel value="Owner Name :"></iLabel>
+        <q-input readonly bg-color="blue-grey-3" filled v-model="name" style="font-size: 20px"></q-input>
+      </div>
 
-        <div class="address">
-          <iLabel value="Address :"></iLabel>
-          <q-input readonly bg-color="blue-grey-3" filled v-model="address" style="font-size: 20px "></q-input>
-        </div>
-        <div class="location">
-          <iLabel value="Location of Application :"></iLabel>
-          <q-input readonly bg-color="blue-grey-3" filled v-model="location" style="font-size: 20px "><q-btn v-if="appid > 0" flat color="primary" label="Locate" @click="showmap" /></q-input>
-        </div>
-        <div class="scope">
-          <iLabel value="Scope of Work :"></iLabel>
-          <q-input readonly bg-color="blue-grey-3" filled v-model="scope" style="font-size: 20px "></q-input>
-        </div>
-        <div class="typeoruse">
-          <iLabel value="Type or Use :"></iLabel>
-          <q-input readonly bg-color="blue-grey-3" filled v-model="typeoruse" style="font-size: 20px "></q-input>
-        </div>
+      <div class="address">
+        <iLabel value="Address :"></iLabel>
+        <q-input readonly bg-color="blue-grey-3" filled v-model="address" style="font-size: 20px"></q-input>
+      </div>
+      <div class="location">
+        <iLabel value="Location of Application :"></iLabel>
+        <q-input readonly bg-color="blue-grey-3" filled v-model="location" style="font-size: 20px"><q-btn v-if="appid > 0" flat color="primary" label="Locate" @click="showmap" /></q-input>
+      </div>
+      <div class="scope">
+        <iLabel value="Scope of Work :"></iLabel>
+        <q-input readonly bg-color="blue-grey-3" filled v-model="scope" style="font-size: 20px"></q-input>
+      </div>
+      <div class="typeoruse">
+        <iLabel value="Type or Use :"></iLabel>
+        <q-input readonly bg-color="blue-grey-3" filled v-model="typeoruse" style="font-size: 20px"></q-input>
+      </div>
     </div>
-    <div><br/><br/></div>
+    <div><br /><br /></div>
 
     <div class="typeofcon" v-if="appid > 0">
       <iLabel value="Type of Construction :"></iLabel><br />
       <q-btn-dropdown v-if="savedTypeBool" split unelevated color="white" text-color="black" @input="checkSavedDropdown">
         <template v-slot:label>
           <div class="row items-center no-wrap">
-            <div class="text-center">{{selectedType}}</div>
+            <div class="text-center">{{ selectedType }}</div>
           </div>
         </template>
 
@@ -1324,13 +1324,13 @@
             </q-item-section>
           </q-item>
 
-           <q-item clickable v-close-popup @click="setType('Type III-B')">
+          <q-item clickable v-close-popup @click="setType('Type III-B')">
             <q-item-section>
               <q-item-label>Type III-B</q-item-label>
             </q-item-section>
           </q-item>
 
-           <q-item clickable v-close-popup @click="setType('Type IV')">
+          <q-item clickable v-close-popup @click="setType('Type IV')">
             <q-item-section>
               <q-item-label>Type IV</q-item-label>
             </q-item-section>
@@ -1344,16 +1344,16 @@
         </q-list>
       </q-btn-dropdown>
 
-       <q-btn-dropdown v-else disable-dropdown split unelevated color="white" text-color="black">
+      <q-btn-dropdown v-else disable-dropdown split unelevated color="white" text-color="black">
         <template v-slot:label>
           <div class="row items-center no-wrap">
-            <div class="text-center">{{selectedType}}</div>
+            <div class="text-center">{{ selectedType }}</div>
           </div>
         </template>
       </q-btn-dropdown>
     </div>
 
-     <!--<div class="dtable" v-if="userdefaultaccess">
+    <!--<div class="dtable" v-if="userdefaultaccess">
         <q-table class="datatable" title="Findings" :data="empdata" :columns="columns" :table-style="{ backgroundColor: '#cfd8dc' }" flat hide-bottom></q-table>
     </div>
 
@@ -2529,12 +2529,14 @@
 <script setup>
 import { ref } from 'vue'
 import { useQuasar } from 'quasar'
+import { useRouter } from 'vue-router'
 // import Swal from 'sweetalert2'
 // const l3s = require('../assets/js/L3S')
 // const iips = require('../assets/js/functions')
 import iLabel from 'components/iLabel.vue'
 
 const quasar = useQuasar()
+const router = useRouter()
 
 let dark = ref(false)
 let appno = ref('')
@@ -2594,65 +2596,65 @@ let columns = ref([
     required: true,
     label: 'Description',
     align: 'left',
-    field: row => row.name,
-    format: val => `${val}`,
-    sortable: true
-  }
-]);
+    field: (row) => row.name,
+    format: (val) => `${val}`,
+    sortable: true,
+  },
+])
 
-let bldglgdata = ref([]);
-let occlgdata = ref([]);
-let bldgarchdata = ref([]);
-let occarchdata = ref([]);
-let bldgstructdata = ref([]);
-let occstructdata = ref([]);
-let bldgplumdata = ref([]);
-let occplumdata = ref([]);
-let bldgelecdata = ref([]);
-let occelecdata = ref([]);
-let bldgmechdata = ref([]);
-let occmechdata = ref([]);
-let zoningdata = ref([]);
-let signdata = ref([]);
-let elecdata = ref([]);
-let mechdata = ref([]);
-let bfpdata = ref([]);
-let empdata = ref([]);
-let map = ref(false);
-let maximizedToggle = ref(true);
-let geolocation = ref('');
-let geoLat = ref('');
-let geoLong = ref('');
-let isDataEmpty = ref(true);
-let okSaved = ref(false);
-let savetable = ref([]);
-let selected = ref([]);
-let info = ref(null);
-let deleterow = ref(false);
-let deleteitem = ref('');
-let deleterowblg = ref(false);
-let deleterowolg = ref(false);
-let deleterowbar = ref(false);
-let deleterowoar = ref(false);
-let deleterowbst = ref(false);
-let deleterowost = ref(false);
-let deleterowbpl = ref(false);
-let deleterowopl = ref(false);
-let deleterowbel = ref(false);
-let deleterowoel = ref(false);
-let deleterowbme = ref(false);
-let deleterowome = ref(false);
-let deleterowsig = ref(false);
-let deleterowele = ref(false);
-let deleterowmec = ref(false);
-let deleterowzon = ref(false);
-let deleterowbfp = ref(false);
-let dateStart = ref('');
-let signageallowadd = ref(true);
-let selectedicon = ref('Please Select a Type');
-let savedicon = ref(null);
+let bldglgdata = ref([])
+let occlgdata = ref([])
+let bldgarchdata = ref([])
+let occarchdata = ref([])
+let bldgstructdata = ref([])
+let occstructdata = ref([])
+let bldgplumdata = ref([])
+let occplumdata = ref([])
+let bldgelecdata = ref([])
+let occelecdata = ref([])
+let bldgmechdata = ref([])
+let occmechdata = ref([])
+let zoningdata = ref([])
+let signdata = ref([])
+let elecdata = ref([])
+let mechdata = ref([])
+let bfpdata = ref([])
+let empdata = ref([])
+let map = ref(false)
+let maximizedToggle = ref(true)
+let geolocation = ref('')
+let geoLat = ref('')
+let geoLong = ref('')
+let isDataEmpty = ref(true)
+let okSaved = ref(false)
+let savetable = ref([])
+let selected = ref([])
+let info = ref(null)
+let deleterow = ref(false)
+let deleteitem = ref('')
+let deleterowblg = ref(false)
+let deleterowolg = ref(false)
+let deleterowbar = ref(false)
+let deleterowoar = ref(false)
+let deleterowbst = ref(false)
+let deleterowost = ref(false)
+let deleterowbpl = ref(false)
+let deleterowopl = ref(false)
+let deleterowbel = ref(false)
+let deleterowoel = ref(false)
+let deleterowbme = ref(false)
+let deleterowome = ref(false)
+let deleterowsig = ref(false)
+let deleterowele = ref(false)
+let deleterowmec = ref(false)
+let deleterowzon = ref(false)
+let deleterowbfp = ref(false)
+let dateStart = ref('')
+let signageallowadd = ref(true)
+let selectedicon = ref('Please Select a Type')
+let savedicon = ref(null)
 let saveType = ref('')
-let savedTypeBool = ref(true);
+let savedTypeBool = ref(true)
 
 let savedbldgLG = ref(0)
 let savedbldgLGMsg = ref('')
@@ -2772,7 +2774,36 @@ const checkDark = () => {
   }
 }
 
-(() => {
+const logout = () => {
+  router.push('/')
+}
+
+// logout () {
+//       const empid = l3s.DecryptNetwork(
+//         this.$q.localStorage.getItem('__' + l3s.Encrypt('id') + '_token')
+//       )
+//       const darkmode = this.$q.sessionStorage.has(
+//         '__' + l3s.Encrypt('dark') + '_token'
+//       )
+//       const authTitle = l3s.Encrypt('auth')
+
+//       this.$axios.put('/api/setOnline/' + empid, {
+//         is_online: 0
+//       })
+//       this.$q.sessionStorage.clear()
+//       if (darkmode) {
+//         this.$q.sessionStorage.set(
+//           '__' + l3s.Encrypt('dark') + '_token',
+//           l3s.EncryptNetwork(true)
+//         )
+//       }
+
+//       this.$q.localStorage.remove('__' + authTitle + '_auth')
+//       this.$q.localStorage.remove('__' + l3s.Encrypt('id') + '_token')
+//       this.$router.push('/', () => {})
+//     },
+
+;(() => {
   checkDark()
 })()
 </script>

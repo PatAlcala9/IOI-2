@@ -3,18 +3,18 @@
     <div v-if="dark" class="workArea-dark" v-touch-swipe.mouse.left="handler(false)">
       <div class="grid-container">
         <div class="main">
-          <img class="logo" ref="logox" src="../assets/ocbologo2.png" alt="OCBO Logo" @click="bounceLogo" />
+          <img class="logo" ref="logox" src="../assets/logo.png" alt="OCBO Logo" @click="bounceLogo" />
           <br />
-          <h2 class="page-title h2-light" @click="rotateTitle">OCBO Online Inspection</h2>
+          <h2 class="page-title h2-light" @click="rotateTitle">Online Inspection</h2>
 
           <div class="form-dark">
             <div class="form-title">Login</div>
             <div class="br"></div>
             <q-input dark v-model="username" type="text" label="Username" mask="XXXXXXXXXXXXXXX" class="textbox" />
             <q-input dark v-model="password" type="password" label="Password" mask="XXXXXXXXXXXXXXX" class="textbox" />
-            <q-btn class="qButton" color="primary" label="Login" @click="testLogin(username, password)"/>
+            <q-btn class="qButton" color="primary" label="Login" @click="testLogin(username, password)" />
             <br />
-            <q-btn flat color="primary" label="Trouble Signing In?" @click="forgotPassword" />
+            <!-- <q-btn flat color="primary" label="Trouble Signing In?" @click="forgotPassword" /> -->
           </div>
 
           <span class="docs" @click="openDocs">See Documentation</span>
@@ -27,7 +27,7 @@
         </div>
 
         <div class="mode">
-          <img class="cursor-pointer" src="../assets/day.svg" alt="Day Mode" width="45px" height="45px" @click="nightmode(false)"/>
+          <img class="cursor-pointer" src="../assets/day.svg" alt="Day Mode" width="45px" height="45px" @click="nightmode(false)" />
         </div>
       </div>
     </div>
@@ -39,18 +39,18 @@
         </div> -->
 
         <div class="main">
-          <img class="logo" ref="logox" src="../assets/ocbologo2.png" alt="OCBO Logo" @click="bounceLogo" />
+          <img class="logo" ref="logox" src="../assets/logo.png" alt="OCBO Logo" @click="bounceLogo" />
           <br />
-          <h2 class="page-title h2-light" @click="rotateTitle">OCBO Online Inspection</h2>
+          <h2 class="page-title h2-light" @click="rotateTitle">Online Inspection</h2>
 
           <div class="form-light">
             <div class="form-title">Login</div>
             <div class="br"></div>
             <q-input v-model="username" type="text" label="Username" mask="XXXXXXXXXXXXXXX" class="textbox" />
             <q-input v-model="password" type="password" label="Password" mask="XXXXXXXXXXXXXXX" class="textbox" />
-            <q-btn class="qButton" color="primary" label="Login"  @click="testLogin(username, password)"/>
+            <q-btn class="qButton" color="primary" label="Login" @click="testLogin(username, password)" />
             <br />
-            <q-btn flat color="primary" label="Trouble Signing In?" @click="forgotPassword" />
+            <!-- <q-btn flat color="primary" label="Trouble Signing In?" @click="forgotPassword" /> -->
           </div>
 
           <span class="docs" @click="openDocs">See Documentation</span>
@@ -63,7 +63,7 @@
         </div>
 
         <div class="mode">
-          <img class="cursor-pointer" src="../assets/night2.svg" alt="Night Mode" width="35px" height="35px" @click="nightmode(true)"/>
+          <img class="cursor-pointer" src="../assets/night2.svg" alt="Night Mode" width="35px" height="35px" @click="nightmode(true)" />
         </div>
       </div>
     </div>
@@ -84,7 +84,7 @@ const quasar = useQuasar()
 
 let username = ref('')
 let password = ref('')
-const footer = 'Office of the City Building Official, Copyright 2024'
+const footer = 'Patrick Alvin Alcala, © Copyright 2024'
 // let ePassword = ''
 // let dbPassword = ''
 let dark = ref(false)
@@ -183,9 +183,9 @@ const forgotPassword = () => {
 
 const checkTestUsername = async (username) => {
   try {
-    if (username.toUpperCase() === 'TEST' ) return true
+    if (username.toUpperCase() === 'TEST') return true
     return false
-  } catch  {
+  } catch {
     return false
   }
 }
@@ -203,7 +203,7 @@ const checkTestUsername = async (username) => {
 
 const checkTestPassword = async (password) => {
   try {
-    if (password.toUpperCase() === 'TEST' ) return true
+    if (password.toUpperCase() === 'TEST') return true
     return false
   } catch {
     return false
@@ -211,7 +211,7 @@ const checkTestPassword = async (password) => {
 }
 
 const testLogin = async (uname, pword) => {
-  if (await checkTestUsername(uname) === false) {
+  if ((await checkTestUsername(uname)) === false) {
     Swal.fire({
       icon: 'error',
       title: 'Login Failed',
@@ -221,7 +221,7 @@ const testLogin = async (uname, pword) => {
     return
   }
 
-  if (await checkTestPassword(pword) === false) {
+  if ((await checkTestPassword(pword)) === false) {
     Swal.fire({
       icon: 'error',
       title: 'Login Failed',
